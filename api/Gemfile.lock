@@ -271,6 +271,7 @@ DEPENDENCIES
   puma (~> 5.1)
   rack-cors
   rails (~> 6.0.3, >= 6.0.3.1)
+  rb-fsevent
   rb-readline
   rspec-rails
   simplecov

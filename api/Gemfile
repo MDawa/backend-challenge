@@ -48,6 +48,7 @@ group :development do
   gem 'rb-readline' # For guard
   gem 'guard-shell'
   gem 'guard-rspec'
+  gem 'rb-fsevent'
 end
 
 group :test do
