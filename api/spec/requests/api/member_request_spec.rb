@@ -20,21 +20,33 @@ RSpec.describe "Api::Members", type: :request do
         expect(json.count).to eq 2
     end
 
-    it "should create a new member" do 
-        # create attibutes to pass to API
-        new_member = FactoryBot.attributes_for(:member3)
+    context "New Member" do 
+        it "should create a new member" do 
+            # create attibutes to pass to API
+            new_member = FactoryBot.attributes_for(:member3)
 
-        post path, params: new_member
-        expect(response).to have_http_status :created
-        # should return new member
-        expect(json["name"]).to eq new_member[:name]
+            post path, params: new_member
+            expect(response).to have_http_status :created
+            # should return new member
+            expect(json["name"]).to eq new_member[:name]
 
-        # Check DB
-        member_db = Member.find_by(name: new_member[:name])
-        expect(member_db.name).to eq new_member[:name]
-    end
+            # Check DB
+            member_db = Member.find_by(name: new_member[:name])
+            expect(member_db.name).to eq new_member[:name]
+        end
 
-    it "should create a friendship of new member3 to member2" do
-        
+        it "should create a friendship of new member3 to member2", blah: true do
+            new_member = FactoryBot.create(:member3)
+
+            new_path = "#{path}/#{@m2.id}/friend"
+
+            post new_path, params: {member_id: new_member.id }
+            expect(response).to have_http_status :created
+
+            # Check DB
+            fs = Friendship.find_by(member1_id: @m2.id, member2_id: new_member.id)
+            expect(fs).not_to be nil
+
+        end
     end
 end

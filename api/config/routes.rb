@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     resources :members, defaults: {format: "json"} do 
       member do
         get :search
+        post :friend
       end
     end
   end
