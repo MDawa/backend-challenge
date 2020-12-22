@@ -46,9 +46,11 @@ group :development do
   gem 'spring-watcher-listen'
   gem 'guard'
   gem 'rb-readline' # For guard
+  gem 'guard-livereload'
   gem 'guard-shell'
   gem 'guard-rspec'
   gem 'rb-fsevent'
+  gem 'spring-commands-rspec'
 end
 
 group :test do
