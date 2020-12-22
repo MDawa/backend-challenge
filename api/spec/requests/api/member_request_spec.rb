@@ -20,6 +20,21 @@ RSpec.describe "Api::Members", type: :request do
         expect(json.count).to eq 2
     end
 
+    it "should list 1 member", blah: true do 
+
+        get "#{path}/#{@m1.id}"
+
+        expect(response).to have_http_status :ok
+        expect(json["name"]).to eq @m1.name
+        expect(json["url"]).to eq @m1.url
+        expect(json["short_url"]).to eq @m1.short_url
+        expect(json["member_headlines"]).to be_an_instance_of(Array)
+        #expect(json["friendships"]).to be_an_instance_of(Array)
+    end
+
+    it "should search" do
+    end
+
     context "New Member" do 
         it "should create a new member" do 
             # create attibutes to pass to API
@@ -35,7 +50,7 @@ RSpec.describe "Api::Members", type: :request do
             expect(member_db.name).to eq new_member[:name]
         end
 
-        it "should create a friendship of new member3 to member2", blah: true do
+        it "should create a friendship of new member3 to member2" do
             new_member = FactoryBot.create(:member3)
 
             new_path = "#{path}/#{@m2.id}/friend"

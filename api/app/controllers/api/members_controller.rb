@@ -26,6 +26,15 @@ class Api::MembersController < ApplicationController
         render json: {message: "Friendship created"}.to_json, status: :created
     end
 
+    def show 
+        member = Member.find(params[:id])
+
+        render json: member.to_json(include: {
+            member_headlines: {only: [:id,:name]}
+            #friendships: {only: [:id,:name]}
+        }), status: :ok
+    end
+
     private
     def members_params
         # TODO: Ideally, short_url shouldn't even be passed and be automatically generated, but due to time, I'm hardcoded it in
