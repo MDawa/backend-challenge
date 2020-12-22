@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_22_185436) do
+ActiveRecord::Schema.define(version: 2020_12_22_193137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "friendships", force: :cascade do |t|
+    t.bigint "member1_id", null: false
+    t.bigint "member2_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["member1_id"], name: "index_friendships_on_member1_id"
+    t.index ["member2_id"], name: "index_friendships_on_member2_id"
+  end
 
   create_table "member_headlines", force: :cascade do |t|
     t.bigint "member_id", null: false
@@ -30,7 +39,10 @@ ActiveRecord::Schema.define(version: 2020_12_22_185436) do
     t.string "short_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "friendships_count"
   end
 
+  add_foreign_key "friendships", "members", column: "member1_id"
+  add_foreign_key "friendships", "members", column: "member2_id"
   add_foreign_key "member_headlines", "members"
 end
