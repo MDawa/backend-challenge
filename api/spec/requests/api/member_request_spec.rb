@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Api::Members", type: :request, blah: true do
+RSpec.describe "Api::Members", type: :request do
     let(:path) { "/api/members" }
     let(:headers) { {"Accept" => "application/json", "Content-Type" => "application/json"} }
 
@@ -20,11 +20,21 @@ RSpec.describe "Api::Members", type: :request, blah: true do
         expect(json.count).to eq 2
     end
 
-    it "should create a new user" do 
+    it "should create a new member" do 
         # create attibutes to pass to API
         new_member = FactoryBot.attributes_for(:member3)
 
         post path, params: new_member
-        puts new_member.inspect
+        expect(response).to have_http_status :created
+        # should return new member
+        expect(json["name"]).to eq new_member[:name]
+
+        # Check DB
+        member_db = Member.find_by(name: new_member[:name])
+        expect(member_db.name).to eq new_member[:name]
+    end
+
+    it "should create a friendship of new member3 to member2" do
+        
     end
 end
