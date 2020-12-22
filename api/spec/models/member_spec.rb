@@ -20,4 +20,17 @@ RSpec.describe Member, type: :model do
       expect(member.errors[:short_url][0]).to eq("can't be blank") 
     end
   end
+
+#   context "relationships", blah: true do 
+#     # TODO: factory bot is not adding the assocations to headlines
+#     it "should have 3 headlines for member1" do
+#       pending("TODO: factory bot is not adding the assocations to headlines")
+#       expect(1).to be(1)
+#       member = FactoryBot.create(:member)
+# puts MemberHeadline.count
+#        member.member_headlines.each do |x|
+#         puts x.inspect
+#       end    
+#     end
+#   end 
 end
