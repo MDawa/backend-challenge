@@ -266,7 +266,7 @@ DEPENDENCIES
   guard-shell
   jbuilder (~> 2.7)
   json_spec
-  listen (~> 3.2)
+  listen
   pg (>= 0.18, < 2.0)
   puma (~> 5.1)
   rack-cors
@@ -276,8 +276,8 @@ DEPENDENCIES
   rspec-rails
   simplecov
   spring
-  spring-watcher-listen (~> 2.0.0)
-  web-console (>= 3.3.0)
+  spring-watcher-listen
+  web-console
   webdrivers
   webmock
 
