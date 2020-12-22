@@ -35,6 +35,17 @@ class Api::MembersController < ApplicationController
         }), status: :ok
     end
 
+    # Search API is supposed to traverse the friendship relation for related headlines
+    def search
+        member = Member.find(params[:id])
+
+        # need custom SQL for this
+        #
+        # SELECT m.id,m.name,h.headline FROM members m
+        # INNER JOIN member_headlines h on (m.id = h.member_id)
+        # INNER JOIN friendships f 
+    end 
+
     private
     def members_params
         # TODO: Ideally, short_url shouldn't even be passed and be automatically generated, but due to time, I'm hardcoded it in
