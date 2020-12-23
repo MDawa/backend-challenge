@@ -21,16 +21,11 @@ RSpec.describe Member, type: :model do
     end
   end
 
-#   context "relationships", blah: true do 
-#     # TODO: factory bot is not adding the assocations to headlines
-#     it "should have 3 headlines for member1" do
-#       pending("TODO: factory bot is not adding the assocations to headlines")
-#       expect(1).to be(1)
-#       member = FactoryBot.create(:member)
-# puts MemberHeadline.count
-#        member.member_headlines.each do |x|
-#         puts x.inspect
-#       end    
-#     end
-#   end 
+  context "relationships", blah: true do 
+    # TODO: factory bot is not adding the assocations to headlines
+    it "should have 3 headlines for member1" do
+      member = FactoryBot.create(:member, headlines: true)
+      pending(member.member_headlines.count).to eq 3 
+    end
+  end 
 end

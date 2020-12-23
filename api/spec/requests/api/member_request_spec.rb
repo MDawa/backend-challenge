@@ -14,7 +14,7 @@ RSpec.describe "Api::Members", type: :request do
     end
 
     it "should list all members (2)" do
-        get path 
+        get path
 
         expect(response).to have_http_status :ok
         expect(json.count).to eq 2

@@ -5,10 +5,15 @@ FactoryBot.define do
     short_url { "http://tinyurl.com/1" }
 
     transient do
-      member_headline do 
-        create_list(:member_headline, 3).each_with_index do |mh, i|
-          mh.headline  = "My Headline #{i}"
+      headlines {false}
+    end
+
+    after :create do |member, options|
+      if options.headlines 
+        create_list(:member_headline, 3) do |mh,i|
+          mh.headline = "My Headline #{i}"
           mh.heading_type = "h#{i}"
+          mh.member = member
         end
       end
     end
@@ -20,7 +25,11 @@ FactoryBot.define do
     short_url { "http://tinyurl.com/2" }
 
     transient do
-      member_headline do 
+      headlines {false}
+    end
+
+    after :create do |member, options|
+      if options.headlines 
         create_list(:member_headline, 3).each_with_index do |mh, i|
           mh.headline = "My Second Headline #{i}"
           mh.heading_type = "h#{i}"
@@ -35,7 +44,11 @@ FactoryBot.define do
     short_url { "http://tinyurl.com/3" }
 
     transient do
-      member_headline do 
+      headlines {false}
+    end
+
+    after :create do |member, options|
+      if options.headlines 
         create_list(:member_headline, 3).each_with_index do |mh, i|
           mh.headline = "My Third Headline #{i}"
           mh.heading_type = "h#{i}"
@@ -50,7 +63,11 @@ FactoryBot.define do
     short_url { "http://tinyurl.com/outside1" }
 
     transient do
-      member_headline do 
+      headlines {false}
+    end
+
+    after :create do |member, options|
+      if options.headlines 
         create_list(:member_headline, 3).each_with_index do |mh, i|
           mh.headline = "My Outside Headline #{i}"
           mh.heading_type = "h#{i}"
