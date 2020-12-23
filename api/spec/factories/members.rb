@@ -10,10 +10,8 @@ FactoryBot.define do
 
     after :create do |member, options|
       if options.headlines 
-        create_list(:member_headline, 3) do |mh,i|
-          mh.headline = "My Headline #{i}"
-          mh.heading_type = "h#{i}"
-          mh.member = member
+        3.times do |i|
+          create(:member_headline, headline: "My Headline #{i+1}", heading_type: "h#{i+1}", member: member)
         end
       end
     end
@@ -30,9 +28,8 @@ FactoryBot.define do
 
     after :create do |member, options|
       if options.headlines 
-        create_list(:member_headline, 3).each_with_index do |mh, i|
-          mh.headline = "My Second Headline #{i}"
-          mh.heading_type = "h#{i}"
+        3.times do |i|
+          create(:member_headline, headline: "My Headline #{i+1}", heading_type: "h#{i+1}", member: member)
         end
       end
     end
@@ -49,9 +46,8 @@ FactoryBot.define do
 
     after :create do |member, options|
       if options.headlines 
-        create_list(:member_headline, 3).each_with_index do |mh, i|
-          mh.headline = "My Third Headline #{i}"
-          mh.heading_type = "h#{i}"
+        3.times do |i|
+          create(:member_headline, headline: "My Headline #{i+1}", heading_type: "h#{i+1}", member: member)
         end
       end
     end
@@ -68,9 +64,8 @@ FactoryBot.define do
 
     after :create do |member, options|
       if options.headlines 
-        create_list(:member_headline, 3).each_with_index do |mh, i|
-          mh.headline = "My Outside Headline #{i}"
-          mh.heading_type = "h#{i}"
+        3.times do |i|
+          create(:member_headline, headline: "My Headline #{i+1}", heading_type: "h#{i+1}", member: member)
         end
       end
     end
