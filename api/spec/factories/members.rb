@@ -29,7 +29,7 @@ FactoryBot.define do
     after :create do |member, options|
       if options.headlines 
         3.times do |i|
-          create(:member_headline, headline: "My Headline #{i+1}", heading_type: "h#{i+1}", member: member)
+          create(:member_headline, headline: "My Second Headline #{i+1}", heading_type: "h#{i+1}", member: member)
         end
       end
     end
@@ -47,7 +47,7 @@ FactoryBot.define do
     after :create do |member, options|
       if options.headlines 
         3.times do |i|
-          create(:member_headline, headline: "My Headline #{i+1}", heading_type: "h#{i+1}", member: member)
+          create(:member_headline, headline: "My Third Headline #{i+1}", heading_type: "h#{i+1}", member: member)
         end
       end
     end
@@ -65,7 +65,7 @@ FactoryBot.define do
     after :create do |member, options|
       if options.headlines 
         3.times do |i|
-          create(:member_headline, headline: "My Headline #{i+1}", heading_type: "h#{i+1}", member: member)
+          create(:member_headline, headline: "My Outside Headline #{i+1}", heading_type: "h#{i+1}", member: member)
         end
       end
     end
