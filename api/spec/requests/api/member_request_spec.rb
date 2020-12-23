@@ -32,8 +32,42 @@ RSpec.describe "Api::Members", type: :request do
         #expect(json["friendships"]).to be_an_instance_of(Array)
     end
 
-    it "should search" do
+  context "search" do
+    it "should search a member who is not a direct friend", search: true do
+      # Make 2nd degree friendship
+      m1 = FactoryBot.create(:member, headlines: true)
+      m2 = FactoryBot.create(:member2, headlines: true)
+      m3 = FactoryBot.create(:member3, headlines: true)
+
+      FactoryBot.create(:friendship, member1: m1, member2: m2)
+      FactoryBot.create(:friendship, member1: m2, member2: m3)
+
+      new_path = "#{path}/#{m1.id}/search"
+
+      get new_path, params: {q: "Third Headline"}
+      expect(response).to have_http_status :ok
+      expect(json["results"].length).to eq 1
+      expect(json["results"][0]["members"].length).to eq 3
+      expect(json["results"][0]["members"][2]["id"]).to eq m3.id
     end
+
+    it "should not return anything if searching a member too far", search: true do
+      # Make 2nd degree friendship
+      m1 = FactoryBot.create(:member, headlines: true)
+      m2 = FactoryBot.create(:member2, headlines: true)
+      m3 = FactoryBot.create(:member3, headlines: true)
+      out = FactoryBot.create(:outside_member, headlines: true)
+
+      FactoryBot.create(:friendship, member1: m1, member2: m2)
+      FactoryBot.create(:friendship, member1: m2, member2: m3)
+
+      new_path = "#{path}/#{m1.id}/search"
+
+      get new_path, params: {q: "Outside Headline"}
+      expect(response).to have_http_status :ok
+      expect(json["results"].length).to eq 0
+    end    
+  end
 
     context "New Member" do 
         it "should create a new member" do 

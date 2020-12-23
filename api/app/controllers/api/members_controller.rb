@@ -38,12 +38,26 @@ class Api::MembersController < ApplicationController
     # Search API is supposed to traverse the friendship relation for related headlines
     def search
         member = Member.find(params[:id])
+        query = params[:q]
 
-        # need custom SQL for this
-        #
-        # SELECT m.id,m.name,h.headline FROM members m
-        # INNER JOIN member_headlines h on (m.id = h.member_id)
-        # INNER JOIN friendships f 
+        # Algorithm
+        # 1. Find if any members satisfy the query, if not, return 0
+        # 2. If match, then see if member is friend with current user, if not, then return member path
+
+        # this should really return more than 1 value
+        member_hit = MemberHeadline.find_by("lower(headline) like ?", "%#{query.downcase}%")
+        id_path = member.friend_path(member_hit.member_id)
+        if (id_path.empty?)
+            render json: {results: []}.to_json, status: :ok
+        else 
+            headline = member_hit.headline 
+            # transform the array to something useful
+            members_path = id_path.map { |id|
+                member_match = Member.find(id)
+                {id: member_match.id, name: member_match.name}
+            }
+            render json: {results: [{headline: headline, members: members_path}]}.to_json, status: :ok
+        end
     end 
 
     private
